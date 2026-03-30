@@ -2,8 +2,8 @@ package handlers
 
 import (
 	"fmt"
-	"log"
 	"strings"
+	"github.com/charmbracelet/log"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/thienntdev/snaptiktok/internal/services"

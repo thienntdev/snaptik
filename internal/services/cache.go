@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"log"
+	"github.com/charmbracelet/log"
 	"time"
 
 	"github.com/redis/go-redis/v9"
@@ -33,7 +33,7 @@ func NewCacheService(cfg *config.Config) *CacheService {
 	if err := client.Ping(ctx).Err(); err != nil {
 		log.Printf("⚠️ Redis connection failed: %v (cache disabled, using in-memory fallback)", err)
 	} else {
-		log.Println("✅ Redis connected successfully")
+		log.Info("✅ Redis connected successfully")
 	}
 
 	return &CacheService{

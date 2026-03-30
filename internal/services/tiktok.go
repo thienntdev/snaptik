@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
+	"github.com/charmbracelet/log"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -318,11 +318,20 @@ func (s *TikTokService) fetchViaTikWM(videoURL string) (*models.VideoInfo, error
 			info.CoverURL = cover
 		}
 	}
-	if music, ok := dataMap["music"].(string); ok && music != "" {
-		if strings.HasPrefix(music, "/") {
-			info.AudioURL = "https://www.tikwm.com" + music
-		} else {
-			info.AudioURL = music
+	// Try to get direct audio URL from music_info first to avoid Cloudflare proxy issues
+	if musicInfo, ok := dataMap["music_info"].(map[string]interface{}); ok {
+		if play, ok := musicInfo["play"].(string); ok && play != "" {
+			info.AudioURL = play
+		}
+	}
+	// Fallback to tikwm music URL
+	if info.AudioURL == "" {
+		if music, ok := dataMap["music"].(string); ok && music != "" {
+			if strings.HasPrefix(music, "/") {
+				info.AudioURL = "https://www.tikwm.com" + music
+			} else {
+				info.AudioURL = music
+			}
 		}
 	}
 	

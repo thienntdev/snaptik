@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"os/signal"
 	"syscall"
+	"github.com/charmbracelet/log"
+
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/compress"
@@ -15,6 +16,7 @@ import (
 
 	"github.com/thienntdev/snaptiktok/internal/config"
 	"github.com/thienntdev/snaptiktok/internal/handlers"
+	applogger "github.com/thienntdev/snaptiktok/internal/logger"
 	"github.com/thienntdev/snaptiktok/internal/middleware"
 	"github.com/thienntdev/snaptiktok/internal/services"
 )
@@ -22,6 +24,9 @@ import (
 func main() {
 	// Load configuration
 	cfg := config.Load()
+
+	// Initialize global logger
+	applogger.Init(cfg.IsProd)
 
 	// Initialize template engine
 	engine := html.New("./internal/templates", ".html")
@@ -122,7 +127,7 @@ func main() {
 
 	go func() {
 		<-quit
-		log.Println("🛑 Shutting down server...")
+		log.Info("🛑 Shutting down server...")
 		if err := app.Shutdown(); err != nil {
 			log.Printf("Error shutting down: %v", err)
 		}

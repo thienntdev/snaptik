@@ -3,7 +3,7 @@ package services
 import (
 	"fmt"
 	"io"
-	"log"
+	"github.com/charmbracelet/log"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -56,8 +56,10 @@ func (s *DownloadService) GetDownloadStream(remoteURL string) (io.ReadCloser, st
 	// Set correct referer based on the URL domain
 	if strings.Contains(remoteURL, "douyinvod.com") || strings.Contains(remoteURL, "douyin.com") || strings.Contains(remoteURL, "iesdouyin.com") {
 		req.Header.Set("Referer", "https://www.douyin.com/")
-	} else {
+	} else if strings.Contains(remoteURL, "tiktok") || strings.Contains(remoteURL, "byte") {
 		req.Header.Set("Referer", "https://www.tiktok.com/")
+	} else if strings.Contains(remoteURL, "tikwm.com") {
+		req.Header.Set("Referer", "https://www.tikwm.com/")
 	}
 	
 	req.Header.Set("Accept", "*/*")
@@ -87,8 +89,10 @@ func (s *DownloadService) ProxyDownload(remoteURL string, w io.Writer) (int64, s
 	// Set correct referer based on the URL domain
 	if strings.Contains(remoteURL, "douyinvod.com") || strings.Contains(remoteURL, "douyin.com") || strings.Contains(remoteURL, "iesdouyin.com") {
 		req.Header.Set("Referer", "https://www.douyin.com/")
-	} else {
+	} else if strings.Contains(remoteURL, "tiktok") || strings.Contains(remoteURL, "byte") {
 		req.Header.Set("Referer", "https://www.tiktok.com/")
+	} else if strings.Contains(remoteURL, "tikwm.com") {
+		req.Header.Set("Referer", "https://www.tikwm.com/")
 	}
 	
 	req.Header.Set("Accept", "*/*")

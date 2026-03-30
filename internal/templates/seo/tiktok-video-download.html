@@ -1,0 +1,127 @@
+<!-- Hero -->
+<section class="relative py-16 sm:py-24 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-sm font-medium mb-8 animate-fade-in">
+            <span class="w-2 h-2 rounded-full bg-brand-400 animate-pulse"></span>
+            TikTok Video Downloader
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 animate-slide-up">
+            Download <span class="bg-gradient-to-r from-brand-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">TikTok Videos</span>
+            Without Watermark in HD
+        </h1>
+
+        <p class="text-lg sm:text-xl text-dark-300 max-w-2xl mx-auto mb-10 animate-slide-up" style="animation-delay: 0.1s;">
+            Save any TikTok video in full HD quality without the watermark. Free, fast, and works on all devices. No registration needed.
+        </p>
+
+        <!-- Input Form -->
+        <form id="download-form" class="max-w-2xl mx-auto animate-slide-up" style="animation-delay: 0.2s;">
+            <div class="relative flex flex-col sm:flex-row gap-3 p-2 rounded-2xl bg-dark-800/60 backdrop-blur-sm border border-white/10 shadow-2xl shadow-brand-500/5 hover:border-brand-500/30 transition-all duration-300 focus-within:border-brand-500/50">
+                <div class="flex-1 relative">
+                    <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-dark-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+                    </svg>
+                    <input type="url" id="url-input" name="url" placeholder="Paste TikTok video link here..." class="w-full pl-12 pr-4 py-4 bg-transparent text-white placeholder-dark-500 outline-none text-base" autocomplete="off" required>
+                </div>
+                <button type="submit" id="submit-btn" class="flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed">
+                    <svg class="w-5 h-5" id="btn-icon-default" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    <svg class="w-5 h-5 animate-spin hidden" id="btn-spinner" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+                    <span id="btn-text">Download Now</span>
+                </button>
+            </div>
+            <div id="error-message" class="hidden mt-4 p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm animate-slide-down"></div>
+        </form>
+    </div>
+</section>
+
+<!-- Result Section (shared) -->
+<section id="result-section" class="hidden max-w-4xl mx-auto px-4 pb-12">
+    <div class="rounded-2xl bg-dark-800/40 backdrop-blur-sm border border-white/10 overflow-hidden animate-slide-up">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-0">
+            <div class="relative aspect-[9/16] max-h-[500px] bg-dark-900 overflow-hidden" id="preview-container">
+                <img id="preview-thumbnail" src="" alt="Video thumbnail" class="w-full h-full object-cover">
+                <video id="preview-video" class="w-full h-full object-cover hidden" controls playsinline></video>
+                <div id="play-overlay" class="absolute inset-0 flex items-center justify-center bg-black/30 cursor-pointer hover:bg-black/20 transition-colors">
+                    <div class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform">
+                        <svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 sm:p-8 flex flex-col">
+                <div class="mb-6">
+                    <div class="flex items-center gap-3 mb-3">
+                        <img id="result-avatar" src="" alt="Author" class="w-10 h-10 rounded-full bg-dark-700 hidden">
+                        <div>
+                            <p id="result-author" class="text-sm font-semibold text-white"></p>
+                            <p id="result-platform" class="text-xs text-dark-400"></p>
+                        </div>
+                    </div>
+                    <h2 id="result-title" class="text-base text-dark-200 leading-relaxed line-clamp-3 mb-4"></h2>
+                    <div id="result-stats" class="flex flex-wrap gap-4 text-xs text-dark-400">
+                        <span id="stat-views" class="flex items-center gap-1 hidden"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg><span></span></span>
+                        <span id="stat-likes" class="flex items-center gap-1 hidden"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg><span></span></span>
+                        <span id="stat-music" class="flex items-center gap-1 hidden"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg><span class="truncate max-w-[120px]"></span></span>
+                    </div>
+                </div>
+                <div class="space-y-3 mt-auto">
+                    <a id="btn-download-video-hd" href="#" class="flex items-center justify-center gap-3 w-full px-6 py-3.5 bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 hover:scale-[1.02] active:scale-[0.98] hidden" download>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                        Download Video HD
+                    </a>
+                    <a id="btn-download-video" href="#" class="flex items-center justify-center gap-3 w-full px-6 py-3.5 bg-dark-700 hover:bg-dark-600 text-white font-medium rounded-xl transition-all duration-300 border border-white/10 hover:border-brand-500/30 hidden" download>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                        Download Video
+                    </a>
+                    <a id="btn-download-audio" href="#" class="flex items-center justify-center gap-3 w-full px-6 py-3.5 bg-dark-700 hover:bg-dark-600 text-white font-medium rounded-xl transition-all duration-300 border border-white/10 hover:border-purple-500/30 hidden" download>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
+                        Download MP3
+                    </a>
+                    <div id="btn-download-images-container" class="hidden">
+                        <p class="text-sm text-dark-400 mb-2">📷 Images:</p>
+                        <div id="images-grid" class="grid grid-cols-3 gap-2 max-h-48 overflow-y-auto"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SEO Content -->
+<section class="py-16 px-4">
+    <div class="max-w-4xl mx-auto prose prose-invert">
+        <h2 class="text-2xl font-bold text-white mb-6">Best Free TikTok Video Downloader Online</h2>
+        <div class="text-dark-300 space-y-4 text-sm leading-relaxed">
+            <p>SnapTiktok is the fastest and most reliable <strong>TikTok video downloader</strong> available online. Our tool allows you to download any TikTok video in Full HD quality without the annoying watermark that TikTok adds to saved videos.</p>
+            <p>Whether you want to save funny videos, tutorials, dance challenges, or cooking recipes — SnapTiktok makes it easy to download and keep TikTok videos on your device for offline viewing.</p>
+            
+            <h3 class="text-lg font-semibold text-white mt-8 mb-4">Key Features of Our TikTok Downloader</h3>
+            <ul class="list-disc pl-6 space-y-2 text-dark-400">
+                <li><strong class="text-white">No Watermark</strong> — Download clean videos without the TikTok logo overlay</li>
+                <li><strong class="text-white">HD Quality</strong> — Get the highest available resolution, up to 1080p</li>
+                <li><strong class="text-white">No Registration</strong> — Start downloading instantly, no account needed</li>
+                <li><strong class="text-white">All Devices</strong> — Works on iPhone, Android, PC, Mac, and tablets</li>
+                <li><strong class="text-white">MP3 Download</strong> — Extract audio tracks from any TikTok video</li>
+                <li><strong class="text-white">Unlimited Downloads</strong> — No daily limits on how many videos you can download</li>
+            </ul>
+
+            <h3 class="text-lg font-semibold text-white mt-8 mb-4">How to Download TikTok Videos Without Watermark</h3>
+            <ol class="list-decimal pl-6 space-y-2 text-dark-400">
+                <li>Open the TikTok app and find the video you want to download</li>
+                <li>Tap the "Share" button and then "Copy Link"</li>
+                <li>Come to SnapTiktok.com and paste the link in the input box</li>
+                <li>Click "Download Now" and choose your preferred format</li>
+                <li>The video will be saved to your device automatically</li>
+            </ol>
+
+            <h3 class="text-lg font-semibold text-white mt-8 mb-4">Supported TikTok URL Formats</h3>
+            <p>We support all TikTok link formats:</p>
+            <ul class="list-disc pl-6 space-y-1 text-dark-400">
+                <li>https://www.tiktok.com/@username/video/1234567890</li>
+                <li>https://vm.tiktok.com/XXXXXXXXX/</li>
+                <li>https://vt.tiktok.com/XXXXXXXXX/</li>
+                <li>Short links shared from the TikTok app</li>
+            </ul>
+        </div>
+    </div>
+</section>

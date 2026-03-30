@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary SEO Meta Tags -->
+    <title>{{.SEO.Title}}</title>
+    <meta name="title" content="{{.SEO.Title}}">
+    <meta name="description" content="{{.SEO.Description}}">
+    <meta name="keywords" content="{{.SEO.Keywords}}">
+    <meta name="author" content="{{.SEO.AppName}}">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{.SEO.Canonical}}">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="{{.SEO.OGType}}">
+    <meta property="og:url" content="{{.SEO.Canonical}}">
+    <meta property="og:title" content="{{.SEO.Title}}">
+    <meta property="og:description" content="{{.SEO.Description}}">
+    <meta property="og:image" content="{{.SEO.OGImage}}">
+    <meta property="og:site_name" content="{{.SEO.AppName}}">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{.SEO.Canonical}}">
+    <meta name="twitter:title" content="{{.SEO.Title}}">
+    <meta name="twitter:description" content="{{.SEO.Description}}">
+    <meta name="twitter:image" content="{{.SEO.OGImage}}">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/static/images/favicon.svg">
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- TailwindCSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#fef1f7',
+                            100: '#fee5f0',
+                            200: '#fecce3',
+                            300: '#ffa2cb',
+                            400: '#fe68a7',
+                            500: '#f83b85',
+                            600: '#e91e63',
+                            700: '#cb1147',
+                            800: '#a8123c',
+                            900: '#8c1435',
+                            950: '#56041a',
+                        },
+                        dark: {
+                            50: '#f6f6f9',
+                            100: '#ececf2',
+                            200: '#d5d5e2',
+                            300: '#b1b1c8',
+                            400: '#8686a9',
+                            500: '#67678f',
+                            600: '#525276',
+                            700: '#434360',
+                            800: '#1e1e2e',
+                            900: '#13131f',
+                            950: '#0b0b14',
+                        }
+                    },
+                    animation: {
+                        'gradient': 'gradient 8s ease infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s ease-in-out infinite',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'slide-down': 'slideDown 0.4s ease-out',
+                        'fade-in': 'fadeIn 0.6s ease-out',
+                        'bounce-in': 'bounceIn 0.6s ease-out',
+                        'shimmer': 'shimmer 2s linear infinite',
+                    },
+                    keyframes: {
+                        gradient: {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(30px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        slideDown: {
+                            '0%': { transform: 'translateY(-20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        bounceIn: {
+                            '0%': { transform: 'scale(0.3)', opacity: '0' },
+                            '50%': { transform: 'scale(1.05)' },
+                            '70%': { transform: 'scale(0.9)' },
+                            '100%': { transform: 'scale(1)', opacity: '1' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "{{.SEO.AppName}}",
+        "url": "{{.SEO.BaseURL}}",
+        "description": "{{.SEO.Description}}",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "{{.SEO.AppName}}"
+        }
+    }
+    </script>
+
+    <!-- Google AdSense (replace with your ID) -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+</head>
+<body class="bg-dark-950 text-white font-sans min-h-screen antialiased">
+    <!-- Background Effects -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-brand-600/10 rounded-full blur-3xl animate-float"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-600/8 rounded-full blur-3xl animate-float" style="animation-delay: -3s;"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-500/5 rounded-full blur-3xl animate-pulse-slow"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 backdrop-blur-xl bg-dark-950/80 border-b border-white/5">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="/" class="flex items-center gap-2 group" id="nav-logo">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-purple-600 flex items-center justify-center shadow-lg shadow-brand-500/25 group-hover:shadow-brand-500/40 transition-shadow">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <span class="text-xl font-bold bg-gradient-to-r from-brand-400 to-purple-400 bg-clip-text text-transparent">SnapTiktok</span>
+                </a>
+                <div class="hidden sm:flex items-center gap-6 text-sm text-dark-300">
+                    <a href="/tiktok-video-download" class="hover:text-brand-400 transition-colors" id="nav-tiktok">TikTok</a>
+                    <a href="/douyin-downloader" class="hover:text-brand-400 transition-colors" id="nav-douyin">Douyin</a>
+                </div>
+                <!-- Mobile menu button -->
+                <button class="sm:hidden p-2 text-dark-400 hover:text-white" id="mobile-menu-btn" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+            </div>
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="hidden sm:hidden pb-4 space-y-2">
+                <a href="/tiktok-video-download" class="block py-2 text-dark-300 hover:text-brand-400 transition-colors">TikTok Downloader</a>
+                <a href="/douyin-downloader" class="block py-2 text-dark-300 hover:text-brand-400 transition-colors">Douyin Downloader</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        {{embed}}
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-auto border-t border-white/5 bg-dark-950/50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="md:col-span-2">
+                    <a href="/" class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-purple-600 flex items-center justify-center">
+                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <span class="text-lg font-bold text-white">SnapTiktok</span>
+                    </a>
+                    <p class="text-dark-400 text-sm leading-relaxed max-w-md">
+                        The fastest way to download TikTok and Douyin videos without watermark. 
+                        Free, unlimited, and works on all devices.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">Tools</h3>
+                    <ul class="space-y-2 text-sm text-dark-400">
+                        <li><a href="/tiktok-video-download" class="hover:text-brand-400 transition-colors">TikTok Video Download</a></li>
+                        <li><a href="/douyin-downloader" class="hover:text-brand-400 transition-colors">Douyin Downloader</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">Legal</h3>
+                    <ul class="space-y-2 text-sm text-dark-400">
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">DMCA</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/5 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+                <p class="text-dark-500 text-xs">&copy; {{.SEO.Year}} {{.SEO.AppName}}. All rights reserved. Not affiliated with TikTok or ByteDance.</p>
+                <p class="text-dark-600 text-xs">Made for educational purposes only.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Sticky Mobile Ad Slot -->
+    <div id="sticky-ad-mobile" class="fixed bottom-0 left-0 right-0 z-40 sm:hidden bg-dark-900/95 backdrop-blur-sm border-t border-white/10 p-2 text-center hidden">
+        <!-- Ad slot: Replace with your ad code -->
+        <div class="ad-placeholder text-xs text-dark-500 py-2">
+            <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXX" data-ad-slot="XXXX" data-ad-format="auto"></ins> -->
+            Ad Space — Mobile Footer
+        </div>
+        <button onclick="this.parentElement.style.display='none'" class="absolute top-1 right-2 text-dark-500 hover:text-white text-xs">✕</button>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

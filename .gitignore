@@ -1,0 +1,39 @@
+# Binaries
+*.exe
+*.dll
+*.so
+*.dylib
+snaptiktok
+
+# Temp files
+tmp/
+*.tmp
+*.temp
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+.env.production
+
+# Docker
+docker-compose.override.yml
+
+# Logs
+*.log
+
+# SSL certs
+nginx/ssl/
+
+# Dependencies (Go modules cache)
+vendor/

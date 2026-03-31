@@ -5,12 +5,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"github.com/charmbracelet/log"
 	"net/http"
 	"net/url"
 	"regexp"
 	"strings"
 	"time"
+
+	"github.com/charmbracelet/log"
 
 	"github.com/google/uuid"
 	"github.com/thienntdev/snaptiktok/internal/models"

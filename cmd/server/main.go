@@ -5,8 +5,8 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
-	"github.com/charmbracelet/log"
 
+	"github.com/charmbracelet/log"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/compress"
@@ -14,11 +14,16 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/gofiber/template/html/v2"
 
+	"net/http"
+	"github.com/gofiber/fiber/v2/middleware/filesystem"
+
 	"github.com/thienntdev/snaptiktok/internal/config"
 	"github.com/thienntdev/snaptiktok/internal/handlers"
 	applogger "github.com/thienntdev/snaptiktok/internal/logger"
 	"github.com/thienntdev/snaptiktok/internal/middleware"
 	"github.com/thienntdev/snaptiktok/internal/services"
+	"github.com/thienntdev/snaptiktok/internal/templates"
+	"github.com/thienntdev/snaptiktok/static"
 )
 
 func main() {
@@ -28,10 +33,10 @@ func main() {
 	// Initialize global logger
 	applogger.Init(cfg.IsProd)
 
-	// Initialize template engine
-	engine := html.New("./internal/templates", ".html")
+	// Initialize template engine with embed.FS
+	engine := html.NewFileSystem(http.FS(templates.FS), ".html")
 	if !cfg.IsProd {
-		engine.Reload(true) // Hot reload in development
+		engine.Reload(true) // Hot reload might not work over embed.FS
 	}
 
 	// Initialize Fiber app
@@ -92,11 +97,10 @@ func main() {
 	app.Use(middleware.BotProtection())
 
 	// ===== Static Files =====
-	app.Static("/static", "./static", fiber.Static{
-		Compress:      true,
-		CacheDuration: 24 * 60 * 60, // 24h cache
-		MaxAge:        86400,
-	})
+	app.Use("/static", filesystem.New(filesystem.Config{
+		Root:   http.FS(static.FS),
+		MaxAge: 3600 * 24, // 24h cache
+	}))
 
 	// ===== Rate Limiter (API only) =====
 	rateLimiter := middleware.NewRateLimiter(cfg)

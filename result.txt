@@ -1,0 +1,2 @@
+MUSIC_JSON: "original sound - thoidaicuachungta_tdcct"
+AUDIO_JSON: "https://v16-ies-music.tiktokcdn-us.com/a935adbf5b976b99360858ee0f83bc8c/69d467eb/video/tos/no1a/tos-no1a-v-2370-no/o0sMHCTJfPFw9hMiiZfNDBQ5LawwuAIdJFzGUT/?a=583965&bti=OUBzOTg7QGo6OjZAL3AjLTAzYCMxNDNg&&bt=125&ft=4KUr5M9h8Zmo0-n_4x4jVEDbinWrKsd.&mime_type=audio_mpeg&rc=ODw0NjxoaWk3Nzo5ZjQzOUBpM2VvdTk6Zjx5PDMzZjU8M0AxLzZhNjAuNjIxXmMyXjAxYSMtMzRicjRnYmdgLS1kMWNzcw%3D%3D&vvpl=1&l=2026033102111575450A7784F0D440BC47&btag=e000b8000&shp=d05b14bd&shcp=-"

@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"github.com/charmbracelet/log"
 	"time"
-
 	"github.com/redis/go-redis/v9"
 	"github.com/thienntdev/snaptiktok/internal/config"
 	"github.com/thienntdev/snaptiktok/internal/models"

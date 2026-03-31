@@ -3,6 +3,7 @@ package handlers
 import (
 	"fmt"
 	"strings"
+
 	"github.com/charmbracelet/log"
 
 	"github.com/gofiber/fiber/v2"

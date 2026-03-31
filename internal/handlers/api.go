@@ -104,6 +104,16 @@ func (h *APIHandler) DownloadProxy(c *fiber.Ctx) error {
 	if err != nil {
 		log.Printf("Download proxy error: %v", err)
 		c.Response().ResetBody() // Clear any partial data
+		
+		// [VERCEL FALLBACK]: If the CDN (Cloudflare or TikTok) blocks Vercel's IP with 403 Forbidden,
+		// we fallback to doing a 302 Redirect directly to the target URL so the user's browser fetches it directly.
+		if strings.Contains(err.Error(), "status 403") {
+			log.Printf("Vercel IP Blocked (403), falling back to 302 Redirect...")
+			c.Response().Header.Del("Content-Disposition")
+			c.Response().Header.Del("Content-Type")
+			return c.Redirect(url, fiber.StatusFound)
+		}
+
 		return c.Status(fiber.StatusBadGateway).SendString(fmt.Sprintf("Sorry, failed to download video from upstream server: %v", err))
 	}
 	

@@ -11,9 +11,6 @@ import (
 	"sync"
 	"time"
 
-	tls_client "github.com/bogdanfinn/tls-client"
-	"github.com/bogdanfinn/tls-client/profiles"
-
 	"github.com/google/uuid"
 	"github.com/thienntdev/snaptiktok/internal/config"
 )
@@ -23,7 +20,7 @@ type DownloadService struct {
 	tempDir string
 	maxAge  time.Duration
 	mu      sync.Mutex
-	client  tls_client.HttpClient
+	client  *http.Client
 }
 
 // NewDownloadService creates a new download service
@@ -33,20 +30,12 @@ func NewDownloadService(cfg *config.Config) *DownloadService {
 		log.Printf("Failed to create temp dir: %v", err)
 	}
 
-	options := []tls_client.HttpClientOption{
-		tls_client.WithTimeoutSeconds(60),
-		tls_client.WithClientProfile(profiles.Chrome_120),
-	}
-
-	client, err := tls_client.NewHttpClient(tls_client.NewLogger(), options...)
-	if err != nil {
-		log.Fatalf("Failed to create TLS client for downloader: %v", err)
-	}
-
 	ds := &DownloadService{
 		tempDir: cfg.TempDir,
 		maxAge:  cfg.FileMaxAge,
-		client:  client,
+		client: &http.Client{
+			Timeout: 60 * time.Second,
+		},
 	}
 
 	// Start cleanup goroutine
